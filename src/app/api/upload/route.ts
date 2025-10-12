@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { CloudflareImagesAPI } from '@/lib/cloudflare';
+import { CloudflareR2API } from '@/lib/cloudflare';
 
-const cloudflare = new CloudflareImagesAPI(
-  process.env.CLOUDFLARE_ACCOUNT_ID!,
-  process.env.CLOUDFLARE_API_TOKEN!
+const r2 = new CloudflareR2API(
+  process.env.ACCCESS_KEY_ID!,
+  process.env.SECRET_ACCESS_KEY!,
+  'images',
+  'https://c5d6065544067a918713b8af67f46e14.r2.cloudflarestorage.com'
 );
 
 export async function POST(request: NextRequest) {
@@ -33,11 +35,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await cloudflare.uploadImage(file);
+    const result = await r2.uploadImage(file);
     
     if (!result.success) {
       return NextResponse.json(
-        { error: 'Upload failed', details: result.errors },
+        { error: 'Upload failed' },
         { status: 500 }
       );
     }
@@ -45,10 +47,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       image: {
-        id: result.result.id,
-        filename: result.result.filename,
-        url: result.result.variants[0] || `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_ID}/${result.result.id}/public`,
-        uploaded: result.result.uploaded,
+        id: result.filename,
+        filename: result.filename,
+        url: result.url,
+        uploaded: result.uploaded,
       },
     });
   } catch (error) {

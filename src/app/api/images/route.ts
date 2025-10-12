@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server';
-import { CloudflareImagesAPI } from '@/lib/cloudflare';
+import { CloudflareR2API } from '@/lib/cloudflare';
 
-const cloudflare = new CloudflareImagesAPI(
-  process.env.CLOUDFLARE_ACCOUNT_ID!,
-  process.env.CLOUDFLARE_API_TOKEN!
+const r2 = new CloudflareR2API(
+  process.env.ACCCESS_KEY_ID!,
+  process.env.SECRET_ACCESS_KEY!,
+  'images',
+  'https://c5d6065544067a918713b8af67f46e14.r2.cloudflarestorage.com'
 );
 
 export async function GET() {
   try {
-    const images = await cloudflare.getImages();
+    const images = await r2.getImages();
     return NextResponse.json({ images });
   } catch (error) {
     console.error('Error fetching images:', error);
@@ -22,16 +24,16 @@ export async function GET() {
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const imageId = searchParams.get('id');
+    const filename = searchParams.get('id');
 
-    if (!imageId) {
+    if (!filename) {
       return NextResponse.json(
         { error: 'Image ID is required' },
         { status: 400 }
       );
     }
 
-    await cloudflare.deleteImage(imageId);
+    await r2.deleteImage(filename);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting image:', error);

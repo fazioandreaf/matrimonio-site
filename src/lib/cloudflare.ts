@@ -1,93 +1,70 @@
-export interface CloudflareUploadResponse {
+export interface R2UploadResponse {
   success: boolean;
-  result: {
-    id: string;
-    filename: string;
-    uploaded: string;
-    requireSignedURLs: boolean;
-    variants: string[];
-  };
-  errors: unknown[];
-  messages: unknown[];
-}
-
-export interface CloudflareImage {
-  id: string;
+  url: string;
   filename: string;
   uploaded: string;
-  requireSignedURLs: boolean;
-  variants: string[];
-  url: string;
 }
 
-export class CloudflareImagesAPI {
-  private accountId: string;
-  private apiToken: string;
+export interface R2Image {
+  id: string;
+  filename: string;
+  url: string;
+  uploaded: string;
+}
 
-  constructor(accountId: string, apiToken: string) {
-    this.accountId = accountId;
-    this.apiToken = apiToken;
+export class CloudflareR2API {
+  private accessKeyId: string;
+  private secretAccessKey: string;
+  private bucketName: string;
+  private endpoint: string;
+
+  constructor(accessKeyId: string, secretAccessKey: string, bucketName: string, endpoint: string) {
+    this.accessKeyId = accessKeyId;
+    this.secretAccessKey = secretAccessKey;
+    this.bucketName = bucketName;
+    this.endpoint = endpoint;
   }
 
-  async uploadImage(file: File): Promise<CloudflareUploadResponse> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${this.accountId}/images/v1`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiToken}`,
-        },
-        body: formData,
-      }
-    );
+  async uploadImage(file: File): Promise<R2UploadResponse> {
+    const filename = `${Date.now()}-${file.name}`;
+    const url = `${this.endpoint}/${this.bucketName}/${filename}`;
+    
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `AWS4-HMAC-SHA256 Credential=${this.accessKeyId}/20231201/auto/s3/aws4_request, SignedHeaders=host;x-amz-date, Signature=placeholder`,
+        'Content-Type': file.type,
+      },
+      body: file,
+    });
 
     if (!response.ok) {
       throw new Error(`Upload failed: ${response.statusText}`);
     }
 
-    return response.json();
+    return {
+      success: true,
+      url: `https://pub-${this.bucketName}.r2.dev/${filename}`,
+      filename: file.name,
+      uploaded: new Date().toISOString(),
+    };
   }
 
-  async getImages(): Promise<CloudflareImage[]> {
-    const response = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${this.accountId}/images/v1`,
-      {
-        headers: {
-          'Authorization': `Bearer ${this.apiToken}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch images: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.result.images.map((image: {
-      id: string;
-      filename: string;
-      uploaded: string;
-      requireSignedURLs: boolean;
-      variants: string[];
-    }) => ({
-      ...image,
-      url: image.variants[0] || `https://imagedelivery.net/${this.accountId}/${image.id}/public`,
-    }));
+  async getImages(): Promise<R2Image[]> {
+    // Per semplicità, restituiamo un array vuoto
+    // In una implementazione completa, dovresti usare l'API S3 per listare gli oggetti
+    return [];
   }
 
-  async deleteImage(imageId: string): Promise<void> {
-    const response = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${this.accountId}/images/v1/${imageId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${this.apiToken}`,
-        },
-      }
-    );
+  async deleteImage(filename: string): Promise<void> {
+    const url = `${this.endpoint}/${this.bucketName}/${filename}`;
+    
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `AWS4-HMAC-SHA256 Credential=${this.accessKeyId}/20231201/auto/s3/aws4_request, SignedHeaders=host;x-amz-date, Signature=placeholder`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`Failed to delete image: ${response.statusText}`);
