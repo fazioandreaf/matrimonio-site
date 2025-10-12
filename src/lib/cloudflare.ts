@@ -17,9 +17,11 @@ export interface R2Image {
 export class CloudflareR2API {
   private s3Client: S3Client;
   private bucketName: string;
+  private publicUrl: string;
 
-  constructor(accessKeyId: string, secretAccessKey: string, bucketName: string, endpoint: string) {
+  constructor(accessKeyId: string, secretAccessKey: string, bucketName: string, endpoint: string, publicUrl: string) {
     this.bucketName = bucketName;
+    this.publicUrl = publicUrl;
     this.s3Client = new S3Client({
       region: 'auto',
       endpoint: endpoint,
@@ -45,7 +47,7 @@ export class CloudflareR2API {
 
     return {
       success: true,
-      url: `https://pub-${this.bucketName}.r2.dev/${filename}`,
+      url: `${this.publicUrl}/${filename}`,
       filename: file.name,
       uploaded: new Date().toISOString(),
     };
@@ -66,7 +68,7 @@ export class CloudflareR2API {
       const images: R2Image[] = response.Contents.map((object) => ({
         id: object.Key!,
         filename: object.Key!.split('-').slice(1).join('-'), // Remove timestamp prefix
-        url: `https://pub-${this.bucketName}.r2.dev/${object.Key}`,
+        url: `${this.publicUrl}/${object.Key}`,
         uploaded: object.LastModified?.toISOString() || new Date().toISOString(),
       }));
 

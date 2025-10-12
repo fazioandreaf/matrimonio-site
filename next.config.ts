@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'pub-images.r2.dev',
+        hostname: new URL(process.env.R2_PUBLIC_URL || 'https://pub-118c09941ed84b2aa0d3315468271eb9.r2.dev').hostname,
         port: '',
         pathname: '/**',
       },

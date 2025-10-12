@@ -5,7 +5,8 @@ const r2 = new CloudflareR2API(
   process.env.ACCCESS_KEY_ID!,
   process.env.SECRET_ACCESS_KEY!,
   'images',
-  'https://c5d6065544067a918713b8af67f46e14.r2.cloudflarestorage.com'
+  'https://c5d6065544067a918713b8af67f46e14.r2.cloudflarestorage.com',
+  process.env.R2_PUBLIC_URL!
 );
 
 export async function GET() {
