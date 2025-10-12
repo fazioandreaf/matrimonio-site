@@ -1,3 +1,5 @@
+import { S3Client, PutObjectCommand, ListObjectsV2Command, DeleteObjectCommand } from '@aws-sdk/client-s3';
+
 export interface R2UploadResponse {
   success: boolean;
   url: string;
@@ -13,34 +15,33 @@ export interface R2Image {
 }
 
 export class CloudflareR2API {
-  private accessKeyId: string;
-  private secretAccessKey: string;
+  private s3Client: S3Client;
   private bucketName: string;
-  private endpoint: string;
 
   constructor(accessKeyId: string, secretAccessKey: string, bucketName: string, endpoint: string) {
-    this.accessKeyId = accessKeyId;
-    this.secretAccessKey = secretAccessKey;
     this.bucketName = bucketName;
-    this.endpoint = endpoint;
+    this.s3Client = new S3Client({
+      region: 'auto',
+      endpoint: endpoint,
+      credentials: {
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
+      },
+    });
   }
 
   async uploadImage(file: File): Promise<R2UploadResponse> {
     const filename = `${Date.now()}-${file.name}`;
-    const url = `${this.endpoint}/${this.bucketName}/${filename}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
     
-    const response = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `AWS4-HMAC-SHA256 Credential=${this.accessKeyId}/20231201/auto/s3/aws4_request, SignedHeaders=host;x-amz-date, Signature=placeholder`,
-        'Content-Type': file.type,
-      },
-      body: file,
+    const command = new PutObjectCommand({
+      Bucket: this.bucketName,
+      Key: filename,
+      Body: buffer,
+      ContentType: file.type,
     });
 
-    if (!response.ok) {
-      throw new Error(`Upload failed: ${response.statusText}`);
-    }
+    await this.s3Client.send(command);
 
     return {
       success: true,
@@ -51,23 +52,37 @@ export class CloudflareR2API {
   }
 
   async getImages(): Promise<R2Image[]> {
-    // Per semplicità, restituiamo un array vuoto
-    // In una implementazione completa, dovresti usare l'API S3 per listare gli oggetti
-    return [];
+    try {
+      const command = new ListObjectsV2Command({
+        Bucket: this.bucketName,
+      });
+
+      const response = await this.s3Client.send(command);
+      
+      if (!response.Contents) {
+        return [];
+      }
+
+      const images: R2Image[] = response.Contents.map((object) => ({
+        id: object.Key!,
+        filename: object.Key!.split('-').slice(1).join('-'), // Remove timestamp prefix
+        url: `https://pub-${this.bucketName}.r2.dev/${object.Key}`,
+        uploaded: object.LastModified?.toISOString() || new Date().toISOString(),
+      }));
+
+      return images;
+    } catch (error) {
+      console.error('Error fetching images from R2:', error);
+      return [];
+    }
   }
 
   async deleteImage(filename: string): Promise<void> {
-    const url = `${this.endpoint}/${this.bucketName}/${filename}`;
-    
-    const response = await fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `AWS4-HMAC-SHA256 Credential=${this.accessKeyId}/20231201/auto/s3/aws4_request, SignedHeaders=host;x-amz-date, Signature=placeholder`,
-      },
+    const command = new DeleteObjectCommand({
+      Bucket: this.bucketName,
+      Key: filename,
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to delete image: ${response.statusText}`);
-    }
+    await this.s3Client.send(command);
   }
 }
