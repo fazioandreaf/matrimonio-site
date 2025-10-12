@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Upload, X, Image as ImageIcon, Trash2 } from 'lucide-react';
+import { Upload, Image as ImageIcon, Trash2 } from 'lucide-react';
+import Image from 'next/image';
 
 interface ImageData {
   id: string;
@@ -163,11 +164,12 @@ export default function GalleryPage() {
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="relative aspect-square">
-                  <img
+                  <Image
                     src={image.url}
                     alt={image.filename}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <button
                     onClick={() => handleDelete(image.id)}

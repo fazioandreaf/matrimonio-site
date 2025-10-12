@@ -7,8 +7,8 @@ export interface CloudflareUploadResponse {
     requireSignedURLs: boolean;
     variants: string[];
   };
-  errors: any[];
-  messages: any[];
+  errors: unknown[];
+  messages: unknown[];
 }
 
 export interface CloudflareImage {
@@ -66,7 +66,13 @@ export class CloudflareImagesAPI {
     }
 
     const data = await response.json();
-    return data.result.images.map((image: any) => ({
+    return data.result.images.map((image: {
+      id: string;
+      filename: string;
+      uploaded: string;
+      requireSignedURLs: boolean;
+      variants: string[];
+    }) => ({
       ...image,
       url: image.variants[0] || `https://imagedelivery.net/${this.accountId}/${image.id}/public`,
     }));

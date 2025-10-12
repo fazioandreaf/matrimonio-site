@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import { Clock, MapPin, Users } from 'lucide-react';
 
 const events = [
   {
