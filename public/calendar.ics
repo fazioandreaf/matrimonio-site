@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Matrimonio//Il Bosco Di Alberolungo//IT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Matrimonio - 30 Giugno 2027
+X-WR-TIMEZONE:Europe/Rome
+BEGIN:VEVENT
+UID:matrimonio-30-giugno-2027@ilboscoalberolungo.it
+DTSTAMP:20250101T000000Z
+DTSTART:20270630T160000Z
+DTEND:20270701T020000Z
+SUMMARY:Matrimonio - Il Bosco Di Alberolungo
+DESCRIPTION:Il nostro matrimonio si terrà presso Il Bosco Di Alberolungo\\n\\nProgramma:\\n16:00 - Cerimonia\\n17:30 - Aperitivo\\n19:00 - Cena di Gala\\n22:00 - Festa e Ballo\\n\\nDress Code: Elegante\\n\\nNon vediamo l'ora di condividere con voi questo momento speciale!
+LOCATION:Il Bosco Di Alberolungo, Via Roccamena, 95024 Acireale CT
+GEO:37.6131;15.1631
+ORGANIZER;CN=Gli Sposi:MAILTO:matrimonio@ilboscoalberolungo.it
+STATUS:CONFIRMED
+SEQUENCE:0
+PRIORITY:5
+CLASS:PUBLIC
+CATEGORIES:Matrimonio,Festa
+END:VEVENT
+END:VCALENDAR

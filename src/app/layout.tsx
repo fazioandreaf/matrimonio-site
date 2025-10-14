@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased bg-gradient-to-br from-pink-50 to-rose-100 min-h-screen`}
+        className={`${inter.variable} ${playfair.variable} antialiased bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen`}
       >
         <Navigation />
         <main className="pt-16">
