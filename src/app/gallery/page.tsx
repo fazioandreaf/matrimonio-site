@@ -74,7 +74,7 @@ export default function GalleryPage() {
     }
   };
 
-  const handleDelete = async (imageId: string) => {
+/*   const handleDelete = async (imageId: string) => {
     if (!confirm('Sei sicuro di voler eliminare questa immagine?')) return;
 
     try {
@@ -91,7 +91,7 @@ export default function GalleryPage() {
       console.error('Delete error:', error);
       alert('Errore durante l\'eliminazione dell\'immagine');
     }
-  };
+  }; */
 
   const handleDownload = async (image: ImageData) => {
     try {
@@ -248,7 +248,7 @@ export default function GalleryPage() {
                   Carica le Foto
                 </h3>
                 <p className="text-gray-600">
-                  Trascina le tue foto nell'area di upload o clicca per selezionarle
+                  Trascina le tue foto nell&apos;area di upload o clicca per selezionarle
                 </p>
               </div>
               

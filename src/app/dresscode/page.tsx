@@ -143,11 +143,11 @@ export default function DressCodePage() {
 
         <div className="bg-green-50 rounded-lg p-6 text-center">
           <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-4">
-            🌟 L'importante è essere te stesso!
+            🌟 L&apos;importante è essere te stesso!
           </h3>
           <p className="text-gray-600">
             Queste sono solo indicazioni per aiutarti a scegliere. 
-            L'importante è che tu ti senta a tuo agio e felice di condividere con noi questo momento speciale.
+            L&apos;importante è che tu ti senta a tuo agio e felice di condividere con noi questo momento speciale.
           </p>
         </div>
       </div>

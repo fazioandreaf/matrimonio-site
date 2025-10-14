@@ -178,6 +178,7 @@ export default function Home() {
       setIsSubmitted(true);
     } catch (err) {
       setError('Si è verificato un errore. Riprova più tardi.');
+      console.error(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -357,7 +358,7 @@ export default function Home() {
                 Grazie per la tua risposta! 💚
               </h3>
               <p className="text-gray-600 text-lg mb-6">
-                Abbiamo ricevuto la tua conferma di presenza. Non vediamo l'ora di condividere con te questo momento speciale!
+                Abbiamo ricevuto la tua conferma di presenza. Non vediamo l&apos;ora di condividere con te questo momento speciale!
               </p>
               <div className="bg-green-50 rounded-lg p-4">
                 <p className="text-green-800">
@@ -661,11 +662,11 @@ export default function Home() {
 
           <div className="bg-green-50 rounded-lg p-6 text-center">
             <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-4">
-              🌟 L'importante è essere te stesso!
+              🌟 L&apos;importante è essere te stesso!
             </h3>
             <p className="text-gray-600">
               Queste sono solo indicazioni per aiutarti a scegliere. 
-              L'importante è che tu ti senta a tuo agio e felice di condividere con noi questo momento speciale.
+              L&apos;importante è che tu ti senta a tuo agio e felice di condividere con noi questo momento speciale.
             </p>
           </div>
         </div>
