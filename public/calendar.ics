@@ -3,10 +3,10 @@ VERSION:2.0
 PRODID:-//Matrimonio//Il Bosco Di Alberolungo//IT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Matrimonio - 30 Giugno 2027
+X-WR-CALNAME:Matrimonio - 30 Maggio 2027
 X-WR-TIMEZONE:Europe/Rome
 BEGIN:VEVENT
-UID:matrimonio-30-giugno-2027@ilboscoalberolungo.it
+UID:matrimonio-30-maggio-2027@ilboscoalberolungo.it
 DTSTAMP:20250101T000000Z
 DTSTART:20270630T160000Z
 DTEND:20270701T020000Z

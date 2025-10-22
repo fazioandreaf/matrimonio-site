@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Upload, Image as ImageIcon, Download, X } from 'lucide-react';
+import { Upload, Image as ImageIcon, Download, X, Camera } from 'lucide-react';
 import Image from 'next/image';
 
 interface ImageData {
@@ -140,11 +140,12 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100 py-8">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            📸 Galleria Foto
+          <h1 className="text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3">
+            <Camera className="h-8 w-8 text-teal-600" />
+            Galleria Foto
           </h1>
           <p className="text-gray-600 text-lg">
             Condividi i tuoi momenti speciali con noi
@@ -163,9 +164,6 @@ export default function GalleryPage() {
         >
           <div className="text-center">
             <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <p className="text-lg text-gray-600 mb-4">
-              Trascina le immagini qui o clicca per selezionare
-            </p>
             <input
               type="file"
               multiple
@@ -176,7 +174,7 @@ export default function GalleryPage() {
             />
             <label
               htmlFor="file-upload"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 cursor-pointer transition-colors"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 cursor-pointer transition-colors"
             >
               {uploading ? 'Caricamento...' : 'Seleziona Immagini'}
             </label>
@@ -221,7 +219,7 @@ export default function GalleryPage() {
                         e.stopPropagation();
                         handleDownload(image);
                       }}
-                      className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors shadow-lg"
+                      className="p-2 bg-green-500 text-white rounded-full hover:bg-teal-600 transition-colors shadow-lg"
                       title="Scarica immagine"
                     >
                       <Download className="h-4 w-4" />
@@ -241,8 +239,8 @@ export default function GalleryPage() {
             
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-green-600">1</span>
+                <div className="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-teal-600">1</span>
                 </div>
                 <h3 className="font-semibold text-lg text-gray-800 mb-2">
                   Carica le Foto
@@ -253,8 +251,8 @@ export default function GalleryPage() {
               </div>
               
               <div className="text-center">
-                <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-green-600">2</span>
+                <div className="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-teal-600">2</span>
                 </div>
                 <h3 className="font-semibold text-lg text-gray-800 mb-2">
                   Condividi i Momenti
@@ -265,8 +263,8 @@ export default function GalleryPage() {
               </div>
               
               <div className="text-center">
-                <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-green-600">3</span>
+                <div className="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-teal-600">3</span>
                 </div>
                 <h3 className="font-semibold text-lg text-gray-800 mb-2">
                   Crea Ricordi
@@ -310,7 +308,7 @@ export default function GalleryPage() {
                     e.stopPropagation();
                     handleDownload(selectedImage);
                   }}
-                  className="p-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors shadow-lg"
+                  className="p-3 bg-green-500 text-white rounded-full hover:bg-teal-600 transition-colors shadow-lg"
                   title="Scarica immagine"
                 >
                   <Download className="h-5 w-5" />

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Clock, MapPin, Users } from 'lucide-react';
+import { Clock, MapPin, Users, Calendar, Gift } from 'lucide-react';
 
 const events = [
   {
@@ -42,11 +42,12 @@ const events = [
 
 export default function EventsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100 py-8">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="font-playfair text-4xl font-bold text-gray-800 mb-4">
-            📅 Programma della Giornata
+          <h1 className="font-playfair text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3">
+            <Calendar className="h-8 w-8 text-teal-600" />
+            Programma della Giornata
           </h1>
           <p className="text-gray-600 text-lg">
             Scopri tutti i momenti speciali che abbiamo preparato per voi
@@ -62,8 +63,8 @@ export default function EventsPage() {
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <div className="bg-green-100 rounded-full w-12 h-12 flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-lg">
+                    <div className="bg-teal-100 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
+                      <span className="text-teal-600 font-bold text-sm md:text-lg">
                         {index + 1}
                       </span>
                     </div>
@@ -78,17 +79,17 @@ export default function EventsPage() {
 
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="flex items-center space-x-2 text-gray-600">
-                    <Clock className="h-5 w-5 text-green-600" />
+                    <Clock className="h-5 w-5 text-teal-600" />
                     <span>{event.time} - {event.duration}</span>
                   </div>
                   
                   <div className="flex items-center space-x-2 text-gray-600">
-                    <MapPin className="h-5 w-5 text-green-600" />
+                    <MapPin className="h-5 w-5 text-teal-600" />
                     <span>{event.location}</span>
                   </div>
                   
                   <div className="flex items-center space-x-2 text-gray-600">
-                    <Users className="h-5 w-5 text-green-600" />
+                    <Users className="h-5 w-5 text-teal-600" />
                     <span>{event.guests}</span>
                   </div>
                 </div>
@@ -97,13 +98,14 @@ export default function EventsPage() {
           ))}
         </div>
 
-        <div className="mt-12 bg-green-50 rounded-lg p-6 text-center">
-          <h3 className="font-playfair text-2xl font-semibold text-gray-800 mb-4">
-            💝 Informazioni Aggiuntive
-          </h3>
+        <div className="mt-12 bg-teal-50 rounded-lg p-6 text-center">
+            <h3 className="font-playfair text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center gap-2">
+              <Gift className="h-6 w-6 text-teal-600" />
+              Informazioni Aggiuntive
+            </h3>
           <div className="space-y-2 text-gray-600">
-            <p><strong>Data:</strong> 30 Giugno 2027</p>
-            <p><strong>Dress Code:</strong> <Link href="/dresscode" className="text-green-600 hover:text-green-700 underline">Smart Casual Elegante</Link></p>
+            <p><strong>Data:</strong> 30 Maggio 2027</p>
+            <p><strong>Dress Code:</strong> <Link href="/dresscode" className="text-teal-600 hover:text-green-700 underline">Smart Casual Elegante</Link></p>
             <p><strong>Parcheggio:</strong> Disponibile presso Il Bosco Di Alberolungo</p>
             <p><strong>Indirizzo:</strong> Via Roccamena, 95024 Acireale CT</p>
             <p><strong>Contatti:</strong> Per qualsiasi domanda, contattateci</p>

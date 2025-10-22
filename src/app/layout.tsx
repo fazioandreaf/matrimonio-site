@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Il Nostro Matrimonio",
+  title: "Andrea & Giuliana",
   description: "Condividi con noi i momenti più belli del nostro matrimonio",
 };
 

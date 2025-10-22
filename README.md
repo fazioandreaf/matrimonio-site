@@ -1,4 +1,4 @@
-# 💒 Il Nostro Matrimonio - Sito Web
+# 💒 Andrea & Giuliana
 
 Un sito web elegante per condividere i momenti speciali del matrimonio, con funzionalità di upload e visualizzazione delle foto tramite Cloudflare Images.
 

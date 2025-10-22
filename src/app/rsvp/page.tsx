@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, Users, MessageSquare, CheckCircle } from 'lucide-react';
+import { Heart, Users, MessageSquare, CheckCircle, PartyPopper } from 'lucide-react';
 
 interface RSVPFormData {
   name: string;
@@ -66,19 +66,20 @@ export default function RSVPPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100 py-8">
         <div className="max-w-2xl mx-auto px-4">
           <div className="bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg text-center">
-            <CheckCircle className="mx-auto h-16 w-16 text-green-600 mb-6" />
-            <h1 className="font-playfair text-3xl font-bold text-gray-800 mb-4">
-              Grazie per la tua risposta! 💚
+            <CheckCircle className="mx-auto h-16 w-16 text-teal-600 mb-6" />
+            <h1 className="font-playfair text-3xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
+              Grazie per la tua risposta! 
+              <Heart className="h-8 w-8 text-teal-600" />
             </h1>
             <p className="text-gray-600 text-lg mb-6">
               Abbiamo ricevuto la tua conferma di presenza. Non vediamo l&apos;ora di condividere con te questo momento speciale!
             </p>
-            <div className="bg-green-50 rounded-lg p-4">
-              <p className="text-green-800">
-                <strong>Data:</strong> 30 Giugno 2027<br />
+            <div className="bg-teal-50 rounded-lg p-4">
+              <p className="text-teal-800">
+                <strong>Data:</strong> 30 Maggio 2027<br />
                 <strong>Luogo:</strong> Il Bosco Di Alberolungo<br />
                 <strong>Indirizzo:</strong> Via Roccamena, 95024 Acireale CT
               </p>
@@ -90,10 +91,10 @@ export default function RSVPPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100 py-8">
       <div className="max-w-2xl mx-auto px-4">
         <div className="text-center mb-8">
-          <Heart className="mx-auto h-12 w-12 text-green-600 mb-4" />
+          <Heart className="mx-auto h-12 w-12 text-teal-600 mb-4" />
           <h1 className="font-playfair text-4xl font-bold text-gray-800 mb-4">
             Conferma la tua presenza
           </h1>
@@ -151,9 +152,12 @@ export default function RSVPPage() {
                     value="true"
                     checked={formData.attending === true}
                     onChange={() => setFormData(prev => ({ ...prev, attending: true }))}
-                    className="mr-3 text-green-600 focus:ring-green-500"
+                    className="mr-3 text-teal-600 focus:ring-green-500"
                   />
-                  <span className="text-gray-700">Sì, parteciperò! 🎉</span>
+                  <span className="text-gray-700 flex items-center gap-1">
+                    Sì, parteciperò! 
+                    <PartyPopper className="h-4 w-4 text-teal-600" />
+                  </span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -162,7 +166,7 @@ export default function RSVPPage() {
                     value="false"
                     checked={formData.attending === false}
                     onChange={() => setFormData(prev => ({ ...prev, attending: false }))}
-                    className="mr-3 text-green-600 focus:ring-green-500"
+                    className="mr-3 text-teal-600 focus:ring-green-500"
                   />
                   <span className="text-gray-700">Purtroppo non potrò esserci 😔</span>
                 </label>
@@ -211,7 +215,7 @@ export default function RSVPPage() {
                         hasDietaryRestrictions: false,
                         dietaryRestrictions: ''
                       }))}
-                      className="mr-3 text-green-600 focus:ring-green-500"
+                      className="mr-3 text-teal-600 focus:ring-green-500"
                     />
                     <span className="text-gray-700">No, nessuna esigenza particolare</span>
                   </label>
@@ -225,7 +229,7 @@ export default function RSVPPage() {
                         ...prev, 
                         hasDietaryRestrictions: true 
                       }))}
-                      className="mr-3 text-green-600 focus:ring-green-500"
+                      className="mr-3 text-teal-600 focus:ring-green-500"
                     />
                     <span className="text-gray-700">Sì, ho esigenze alimentari</span>
                   </label>
@@ -277,7 +281,7 @@ export default function RSVPPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
+              className="w-full bg-teal-600 hover:bg-teal-700 disabled:bg-green-400 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
             >
               {isSubmitting ? (
                 <>
