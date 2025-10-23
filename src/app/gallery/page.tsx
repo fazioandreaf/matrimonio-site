@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Upload, Image as ImageIcon, Download, X, Camera } from 'lucide-react';
+import { Upload, Image as ImageIcon, Download, X, Camera, Info } from 'lucide-react';
 import Image from 'next/image';
 
 interface ImageData {
@@ -276,6 +276,20 @@ export default function GalleryPage() {
             </div>
           </div>
         </section>
+
+        <div className="mt-12 bg-teal-50 rounded-lg p-6 text-center">
+          <h3 className="font-playfair text-xl font-semibold text-gray-800 mb-4 flex items-center justify-center gap-2">
+            <Info className="h-5 w-5 text-teal-600" />
+            Altre domande?
+          </h3>
+          <p className="text-gray-600">
+            Se hai bisogno di aiuto o hai domande sulla galleria, non esitare a contattarci.
+            <br />
+            <a href="mailto:fazioandrea.f@gmail.com" className="text-teal-600 hover:text-teal-700 underline">
+              fazioandrea.f@gmail.com
+            </a>
+          </p>
+        </div>
       </div>
 
       {/* Modal per visualizzazione immagine */}

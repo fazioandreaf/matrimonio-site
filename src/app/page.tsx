@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Calendar, MapPin, Clock, Users, ChevronDown, ChevronUp, Car, Gift, X, Check, Camera, MessageSquare, CheckCircle, TreePine, Sun, PartyPopper, Sparkles, HelpCircle, Info } from 'lucide-react';
+import { Heart, Calendar, MapPin, Clock, Users, ChevronDown, ChevronUp, Car, Gift, Check, Camera, MessageSquare, CheckCircle, TreePine, Sun, PartyPopper, Sparkles, HelpCircle, Info } from 'lucide-react';
 
 // Dati per gli eventi
 const events = [
   {
     id: 1,
     title: 'Cerimonia',
-    time: '16:00',
+    time: '11:00',
     duration: '1 ora',
     location: 'Il Bosco Di Alberolungo',
     description: 'La cerimonia che unirà i nostri cuori per sempre nel verde della natura',
@@ -19,28 +19,19 @@ const events = [
   {
     id: 2,
     title: 'Aperitivo',
-    time: '17:30',
-    duration: '1 ora',
+    time: '12:00',
+    duration: '2 ore',
     location: 'Giardino del Bosco',
     description: 'Un momento di convivialità con aperitivo e brindisi nella natura',
     guests: 'Tutti gli invitati',
   },
   {
     id: 3,
-    title: 'Cena di Gala',
-    time: '19:00',
+    title: 'Pranzo',
+    time: '14:00',
     duration: '3 ore',
     location: 'Sala del Bosco',
-    description: 'Una cena elegante con menu personalizzato e vini selezionati',
-    guests: 'Tutti gli invitati',
-  },
-  {
-    id: 4,
-    title: 'Festa e Ballo',
-    time: '22:00',
-    duration: 'Fino a tardi',
-    location: 'Terrazza del Bosco',
-    description: 'Musica, balli e festeggiamenti fino all\'alba sotto le stelle',
+    description: 'Un pranzo elegante con menu personalizzato e vini selezionati',
     guests: 'Tutti gli invitati',
   },
 ];
@@ -52,16 +43,14 @@ const dressCodeItems = [
     icon: '👗',
     title: 'Abito Elegante',
     description: 'Abito da giorno elegante, vestito o tailleur',
-    colors: ['Verde smeraldo', 'Blu navy', 'Beige', 'Bianco panna', 'Rosa polvere'],
-    avoid: ['Nero totale', 'Rosso acceso', 'Bianco puro']
+    colors: ['Verde smeraldo', 'Blu navy', 'Beige', 'Bianco panna', 'Rosa polvere']
   },
   {
     category: 'Uomini',
     icon: '👔',
     title: 'Smart Casual',
     description: 'Camicia elegante con pantaloni o giacca sportiva',
-    colors: ['Blu navy', 'Beige', 'Verde scuro', 'Grigio', 'Bianco'],
-    avoid: ['Jeans', 'T-shirt', 'Sneakers sportive']
+    colors: ['Blu navy', 'Beige', 'Verde scuro', 'Grigio', 'Bianco']
   }
 ];
 
@@ -73,18 +62,8 @@ const tips = [
   },
   {
     icon: Sun,
-    title: 'Stagione Estiva',
-    description: 'Scegli tessuti leggeri e traspiranti per il caldo di maggio'
-  },
-  {
-    icon: Camera,
-    title: 'Fotografie',
-    description: 'I colori pastello e i toni naturali sono perfetti per le foto'
-  },
-  {
-    icon: PartyPopper,
-    title: 'Comfort',
-    description: 'Scegli un outfit in cui ti senti a tuo agio per ballare e festeggiare'
+    title: 'Alta Quota',
+    description: 'Siamo ad alta quota dove può fare fresco, porta una giacchettina o uno scialle'
   }
 ];
 
@@ -93,13 +72,13 @@ const faqs = [
   {
     id: '1',
     question: 'A che ora inizia la cerimonia?',
-    answer: 'La cerimonia civile inizierà alle 16:00 presso Il Bosco Di Alberolungo. Ti consigliamo di arrivare con almeno 15 minuti di anticipo per trovare posto e goderti l\'atmosfera.',
+    answer: 'La cerimonia civile inizierà alle 11:00 presso Il Bosco Di Alberolungo. Ti consigliamo di arrivare con almeno 15 minuti di anticipo per trovare posto e goderti l\'atmosfera.',
     icon: <Clock className="h-5 w-5 text-teal-600" />
   },
   {
     id: '2',
     question: 'Come posso raggiungere la location?',
-    answer: 'Il Bosco Di Alberolungo si trova in Via Roccamena, 95024 Acireale CT. C\'è parcheggio gratuito disponibile. Puoi cliccare sulla card dell\'indirizzo nella homepage per aprire Google Maps con le indicazioni precise.',
+    answer: 'Il Bosco Di Alberolungo si trova in Via Roccamena, 95024 Acireale CT. C\'è parcheggio gratuito disponibile.',
     icon: <MapPin className="h-5 w-5 text-teal-600" />
   },
   {
@@ -111,13 +90,7 @@ const faqs = [
   {
     id: '4',
     question: 'Cosa devo indossare?',
-    answer: 'Il dress code è Smart Casual Elegante. Per le donne: abito elegante da giorno, vestito o tailleur. Per gli uomini: camicia elegante con pantaloni o giacca sportiva. Evita il nero totale, rosso acceso, jeans e sneakers sportive.',
-    icon: <Users className="h-5 w-5 text-teal-600" />
-  },
-  {
-    id: '5',
-    question: 'Posso portare i bambini?',
-    answer: 'Certamente! I bambini sono i benvenuti. Se hai bisogno di seggiolini o cibi specifici, faccelo sapere nella sezione RSVP nel messaggio per gli sposi.',
+    answer: 'Il dress code è Smart Casual Elegante. Per le donne: abito elegante da giorno, vestito o tailleur. Per gli uomini: camicia elegante con pantaloni o giacca sportiva. Considera che siamo ad alta quota dove può fare fresco, quindi porta una giacchettina o uno scialle. Evita tacchi troppo alti per il terreno naturale.',
     icon: <Users className="h-5 w-5 text-teal-600" />
   },
   {
@@ -224,7 +197,7 @@ export default function Home() {
             Andrea & Giuliana
           </h1>
           
-          <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-3xl">
+          <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-3xl" id="location">
             <button
               onClick={() => {
                 const link = document.createElement('a');
@@ -286,11 +259,11 @@ export default function Home() {
       </section>
 
       {/* Sezione Eventi */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4" id="events">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-playfair text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3">
-              <Calendar className="h-8 w-8 text-teal-600" />
+            <Calendar className="mx-auto h-12 w-12 text-teal-600 mb-4" />
+            <h2 className="font-playfair text-3xl font-bold text-gray-800 mb-4">
               Programma della Giornata
             </h2>
             <p className="text-gray-600 text-lg">
@@ -359,11 +332,11 @@ export default function Home() {
       </section>
 
       {/* Sezione RSVP */}
-      <section className="py-16 px-4 bg-white/30">
+      <section className="py-16 px-4 bg-white/30" id="rsvp">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             <Heart className="mx-auto h-12 w-12 text-teal-600 mb-4" />
-            <h2 className="font-playfair text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="font-playfair text-3xl font-bold text-gray-800 mb-4">
               Conferma la tua presenza
             </h2>
             <p className="text-gray-600 text-lg">
@@ -589,11 +562,11 @@ export default function Home() {
       </section>
 
       {/* Sezione Dress Code */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4" id="dresscode">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Heart className="mx-auto h-12 w-12 text-teal-600 mb-4" />
-            <h2 className="font-playfair text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="font-playfair text-3xl font-bold text-gray-800 mb-4">
               👗 Dress Code
             </h2>
             <p className="text-gray-600 text-lg">
@@ -642,23 +615,6 @@ export default function Home() {
                         ))}
                       </div>
                     </div>
-
-                    <div>
-                      <h6 className="font-medium text-red-600 mb-2 flex items-center">
-                        <X className="h-4 w-4 mr-1" />
-                        Da Evitare
-                      </h6>
-                      <div className="flex flex-wrap gap-2">
-                        {item.avoid.map((item, i) => (
-                          <span
-                            key={i}
-                            className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -700,12 +656,11 @@ export default function Home() {
       </section>
 
       {/* Sezione FAQ */}
-      <section className="py-16 px-4 bg-white/30">
+      <section className="py-16 px-4 bg-white/30" id="faq">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Heart className="mx-auto h-12 w-12 text-teal-600 mb-4" />
-            <h2 className="font-playfair text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3">
-              <HelpCircle className="h-8 w-8 text-teal-600" />
+            <h2 className="font-playfair text-3xl font-bold text-gray-800 mb-4">
               Domande Frequenti
             </h2>
             <p className="text-gray-600 text-lg">
@@ -738,9 +693,22 @@ export default function Home() {
                 
                 {openItems.includes(faq.id) && (
                   <div className="px-6 pb-4">
-                    <div className="pl-8 border-l-2 border-green-200">
+                    <div className="pl-8 border-l-2 border-teal-200">
                       <p className="text-gray-600 leading-relaxed">
                         {faq.answer}
+                        {faq.id === '2' && (
+                          <>
+                            {' '}
+                            <a 
+                              href="https://maps.google.com/?q=Via+Roccamena,+95024+Acireale+CT" 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="text-teal-600 hover:text-teal-700 underline"
+                            >
+                              Clicca qui per aprire Google Maps con le indicazioni precise
+                            </a>.
+                          </>
+                        )}
                       </p>
                     </div>
                   </div>
