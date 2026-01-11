@@ -327,7 +327,7 @@ export default function GalleryPage() {
 								alt={selectedImage.filename}
 								width={0}
 								height={0}
-								className="w-auto max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+								className="w-auto max-w-full max-h-[80dvh] object-contain rounded-lg shadow-2xl"
 								sizes="100vw"
 							/>
 

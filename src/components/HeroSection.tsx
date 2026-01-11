@@ -18,7 +18,7 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 	return (
 		<section
 			className="relative flex-col flex md:flex-col"
-			style={{ height: "calc(100vh - 4rem)" }}
+			style={{ height: "calc(100dvh - 4rem)" }}
 		>
 			<div className="absolute inset-0 ">
 				<Image
