@@ -30,7 +30,7 @@ const faqs: FAQ[] = [
 		id: "1",
 		question: "A che ora inizia la cerimonia?",
 		answer:
-			"La cerimonia civile inizierà alle 11:00 presso Borgata Baldazza. Ti consigliamo di arrivare con almeno 15 minuti di anticipo per trovare posto e goderti l'atmosfera.",
+			"La cerimonia civile inizierà alle 18:00 presso Borgata Baldazza. Ti consigliamo di arrivare con almeno 15 minuti di anticipo per trovare posto e goderti l'atmosfera.",
 		icon: <Clock className="h-5 w-5 text-amber-800" />,
 	},
 	{
@@ -43,8 +43,7 @@ const faqs: FAQ[] = [
 	{
 		id: "3",
 		question: "C'è parcheggio disponibile?",
-		answer:
-			"Sì, c'è parcheggio gratuito disponibile presso la location. Ti consigliamo di arrivare con un po' di anticipo per trovare facilmente un posto.",
+		answer: "Sì, c'è parcheggio gratuito disponibile presso la location.",
 		icon: <Car className="h-5 w-5 text-amber-800" />,
 	},
 	{
@@ -89,44 +88,42 @@ const FAQSection = ({ onOpenMaps }: FAQSectionProps) => {
 				</div>
 
 				<div className="space-y-4">
-					{faqs.map((faq) => (
+					{faqs.map(({ id, question, answer, icon }) => (
 						<div
-							key={faq.id}
+							key={id}
 							className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden border border-amber-400/20"
 						>
 							<button
-								onClick={() => toggleItem(faq.id)}
+								onClick={() => toggleItem(id)}
 								className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-teal-50 transition-colors"
 							>
 								<div className="flex items-center space-x-3">
-									{faq.icon}
-									<h3 className="font-semibold text-amber-900">
-										{faq.question}
-									</h3>
+									{icon}
+									<h3 className="font-semibold text-amber-900">{question}</h3>
 								</div>
-								{openItems.includes(faq.id) ? (
+								{openItems.includes(id) ? (
 									<ChevronUp className="h-5 w-5 text-amber-800" />
 								) : (
 									<ChevronDown className="h-5 w-5 text-amber-800" />
 								)}
 							</button>
 
-							{openItems.includes(faq.id) && (
+							{openItems.includes(id) && (
 								<div className="px-6 pb-4">
 									<div className="pl-8 border-l-2 border-amber-400/40">
 										<p className="text-amber-800 leading-relaxed">
-											{faq.answer}
-											{faq.id === "2" && (
+											{answer}
+											<br />
+											<br />
+											{id === "2" && (
 												<>
-													{" "}
 													<button
 														onClick={onOpenMaps}
-														className="text-amber-800 hover:text-amber-700 underline bg-transparent border-none p-0 cursor-pointer"
+														className="text-amber-800 text-left hover:text-amber-700 underline bg-transparent border-none p-0 cursor-pointer"
 													>
 														Clicca qui per aprire Google Maps con le indicazioni
 														precise
 													</button>
-													.
 												</>
 											)}
 										</p>
@@ -147,10 +144,22 @@ const FAQSection = ({ onOpenMaps }: FAQSectionProps) => {
 					</p>
 					<div className="space-y-2 text-sm text-amber-800">
 						<p>
-							<strong>Email:</strong>fazioandrea.f@gmail.com
+							<strong>Email:</strong>{" "}
+							<a
+								href="mailto:fazioandrea.f@gmail.com"
+								className="text-amber-800 hover:text-amber-700 underline"
+							>
+								fazioandrea.f@gmail.com
+							</a>
 						</p>
 						<p>
-							<strong>Telefono:</strong> +39 123 456 7890
+							<strong>Telefono:</strong>{" "}
+							<a
+								href="tel:+393403093977"
+								className="text-amber-800 hover:text-amber-700 underline"
+							>
+								+39 340 309 3977
+							</a>
 						</p>
 					</div>
 				</div>

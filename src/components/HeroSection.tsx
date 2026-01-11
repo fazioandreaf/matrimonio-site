@@ -46,12 +46,12 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 				</h1> */}
 
 				<div
-					className="flex flex-col h-full justify-end my-3 md:grid-cols-2 gap-6 w-full items-center"
+					className="flex flex-col h-full justify-end my-3 md:grid-cols-2 gap-3 w-full items-center"
 					id="location"
 				>
 					<button
 						onClick={handleDownloadCalendar}
-						className="bg-teal-100/10 backdrop-blur-lg rounded-lg p-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30"
+						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30"
 					>
 						<h3 className="font-playfair text-xl font-bold text-amber-400 mb-2 drop-shadow-sm flex justify-center gap-2">
 							<Calendar className="text-amber-400" />
@@ -67,7 +67,7 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 
 					<button
 						onClick={onOpenMaps}
-						className="bg-teal-100/10 backdrop-blur-lg rounded-lg p-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30"
+						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30"
 					>
 						<h3 className="font-playfair text-xl font-bold text-amber-400 mb-2 drop-shadow-sm flex justify-center gap-2">
 							<MapPin className="text-amber-400" />

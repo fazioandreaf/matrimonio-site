@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Allura, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 
-const inter = Inter({
+const inter = Montserrat({
 	variable: "--font-inter",
 	subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
+const playfair = Allura({
 	variable: "--font-playfair",
 	subsets: ["latin"],
+	weight: "400",
 });
 
 export const metadata: Metadata = {

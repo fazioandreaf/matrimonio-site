@@ -10,6 +10,9 @@ import {
 	Signature,
 } from "lucide-react";
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
+
 export interface RSVPFormData {
 	name: string;
 	email: string;
@@ -153,7 +156,7 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 									htmlFor="email"
 									className="block text-sm font-medium text-amber-900 mb-2"
 								>
-									Email *
+									Email
 								</label>
 								<input
 									type="email"
@@ -200,9 +203,9 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 											}
 											className="mr-3 text-amber-800 focus:ring-amber-400"
 										/>
-										<span className="text-amber-900">
-											Purtroppo non potrò esserci 😔
-										</span>
+										<div className="text-amber-900 flex items-center gap-1">
+											Purtroppo non potrò esserci <FontAwesomeIcon icon={faFaceSadTear} width={16} height={16} className="text-amber-800" />
+										</div>
 									</label>
 								</div>
 							</div>

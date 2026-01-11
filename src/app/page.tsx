@@ -6,6 +6,7 @@ import EventsSection from "@/components/EventsSection";
 import RSVPSection from "@/components/RSVPSection";
 import DressCodeSection from "@/components/DressCodeSection";
 import FAQSection from "@/components/FAQSection";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Home = () => {
 	// Funzione per aprire Google Maps con la posizione corrente
@@ -46,6 +47,7 @@ const Home = () => {
 			<RSVPSection />
 			<DressCodeSection />
 			<FAQSection onOpenMaps={openGoogleMapsWithCurrentLocation} />
+			<ScrollToTop />
 		</div>
 	);
 };
