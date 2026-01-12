@@ -22,22 +22,22 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 		>
 			<div className="absolute inset-0 ">
 				<Image
-					src="/hero_mobile.jpeg"
-					alt="Andrea & Giuliana - Il nostro amore"
-					width={100 * 5}
-					className="object-cover hidden md:block w-full h-full "
-					height={134 * 5}
+					src="/provaa.png"
+					alt="Andrea & Giuliana"
+					width={450}
+					className="object-cover h-full object-center md:hidden"
+					height={900}
 					priority
 				/>
 				<Image
 					src="/partecipazione.png"
-					alt="Andrea & Giuliana - Il nostro amore"
-					width={135 * 5}
-					className="object-cover md:hidden h-full object-left"
-					height={100 * 5}
+					alt="Andrea & Giuliana"
+					width={1440 * 5}
+					className="object-cover h-full object-center hidden md:block"
+					height={1080 * 5}
 					priority
 				/>
-				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+				<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/5"></div>
 			</div>
 			{/* Contenuto sopra l'immagine */}
 			<div className="relative flex h-full flex-col justify-between items-center text-center px-4">
@@ -46,12 +46,12 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 				</h1> */}
 
 				<div
-					className="flex flex-col h-full justify-end my-3 md:grid-cols-2 gap-3 w-full items-center"
+					className="flex flex-col h-full justify-end my-3 md:grid-cols-2 gap-3 w-2xs items-center"
 					id="location"
 				>
 					<button
 						onClick={handleDownloadCalendar}
-						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30"
+						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30 w-full"
 					>
 						<h3 className="font-playfair text-xl font-bold text-amber-400 mb-2 drop-shadow-sm flex justify-center gap-2">
 							<Calendar className="text-amber-400" />
@@ -67,7 +67,7 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 
 					<button
 						onClick={onOpenMaps}
-						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30"
+						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30 w-full"
 					>
 						<h3 className="font-playfair text-xl font-bold text-amber-400 mb-2 drop-shadow-sm flex justify-center gap-2">
 							<MapPin className="text-amber-400" />

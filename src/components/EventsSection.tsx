@@ -6,7 +6,6 @@ interface Event {
 	id: number;
 	title: string;
 	time: string;
-	duration: string;
 	location: string;
 	description: string;
 }
@@ -16,26 +15,23 @@ const events: Event[] = [
 	{
 		id: 1,
 		title: "Cerimonia",
-		time: "18:00",
-		duration: "1 ora",
+		time: "17:00",
 		location: "Borgata Baldazza",
-		description: "La cerimonia che unirà i nostri cuori per sempre",
+		description: "Trovate il vostro posto a sedere nel bosco",
 	},
 	{
 		id: 2,
 		title: "Aperitivo",
-		time: "19:00",
-		duration: "1 ore",
+		time: "18:30",
 		location: "Borgata Baldazza",
-		description: "Un momento di convivialità con aperitivo e brindisi",
+		description: "Un momento di convivialità, brindisi e foto",
 	},
 	{
 		id: 3,
 		title: "Cena",
 		time: "20:00",
-		duration: "3 ore",
 		location: "Borgata Baldazza",
-		description: "Una cena elegante con menu personalizzato e vini selezionati",
+		description: "Cena immersa nel bosco sotto le luci",
 	},
 ];
 
@@ -51,14 +47,11 @@ const EventsSection = () => {
 					<h2 className="font-playfair text-3xl font-bold text-amber-900 mb-4">
 						Programma della Giornata
 					</h2>
-					<p className="text-amber-800 text-lg">
-						Scopri tutti i momenti speciali che abbiamo preparato per voi
-					</p>
 				</div>
 
 				<div className="space-y-8">
 					{events.map(
-						({ id, title, time, duration, location, description }, index) => (
+						({ id, title, time, location, description }, index) => (
 							<div
 								key={id}
 								className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden border border-amber-400/20"
@@ -88,7 +81,7 @@ const EventsSection = () => {
 										<div className="flex items-center space-x-2 text-amber-800">
 											<Clock className="h-5 w-5 text-amber-800" />
 											<span>
-												{time} - {duration}
+												{time}
 											</span>
 										</div>
 
@@ -101,31 +94,6 @@ const EventsSection = () => {
 							</div>
 						)
 					)}
-				</div>
-
-				<div className="mt-12 bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center border border-amber-400/20">
-					<h3 className="font-playfair text-2xl font-semibold text-amber-900 mb-4 flex items-center justify-center gap-2">
-						<Gift className="h-6 w-6 text-amber-800" />
-						Informazioni Aggiuntive
-					</h3>
-					<div className="space-y-2 text-amber-800">
-						{/* <p>
-							<strong>Data:</strong> 13 Giugno 2027
-						</p> */}
-						<p>
-							<strong>Dress Code:</strong> Casual Elegante
-						</p>
-						<p>
-							<strong>Parcheggio:</strong> Disponibile presso Borgata Baldazza
-						</p>
-						<p>
-							<strong>Indirizzo:</strong> Contrada Baldazza SNC, 95015
-							Linguaglossa CT
-						</p>
-						{/* <p>
-							<strong>Contatti:</strong> Per qualsiasi domanda, contattateci
-						</p> */}
-					</div>
 				</div>
 			</div>
 		</section>

@@ -9,8 +9,8 @@ import {
 	Clock,
 	MapPin,
 	Car,
-	Gift,
 	Users,
+	Utensils
 } from "lucide-react";
 
 export interface FAQ {
@@ -38,27 +38,21 @@ const faqs: FAQ[] = [
 		question: "Come posso raggiungere la location?",
 		answer:
 			"Borgata Baldazza si trova in Contrada Baldazza SNC, 95015 Linguaglossa CT. C'è parcheggio gratuito disponibile.",
-		icon: <MapPin className="h-5 w-5 text-amber-800" />,
-	},
-	{
-		id: "3",
-		question: "C'è parcheggio disponibile?",
-		answer: "Sì, c'è parcheggio gratuito disponibile presso la location.",
 		icon: <Car className="h-5 w-5 text-amber-800" />,
 	},
 	{
-		id: "4",
+		id: "3",
 		question: "Cosa devo indossare?",
 		answer:
-			"Il dress code è Smart Casual Elegante. Per le donne: abito elegante da giorno, vestito o tailleur. Per gli uomini: camicia elegante con pantaloni o giacca sportiva. Considera che siamo ad alta quota dove può fare fresco, quindi porta una giacchettina o uno scialle. Evita tacchi troppo alti per il terreno naturale.",
+			"Il dress code è Casual Elegante ma sentiti libera/o di indossare quello che ti rappresenta di più. Considera che siamo ad alta quota dove può fare fresco, in un ambiente totalmente aperto con terreno naturale.",
 		icon: <Users className="h-5 w-5 text-amber-800" />,
 	},
 	{
-		id: "6",
-		question: "C'è un menu vegetariano/vegano disponibile?",
+		id: "4",
+		question: "C'è un menu vegetariano/ vegano/celiaco disponibile?",
 		answer:
 			"Sì, abbiamo opzioni per tutte le esigenze alimentari. Quando confermi la tua presenza tramite RSVP, puoi specificare eventuali allergie o preferenze alimentari nel messaggio per gli sposi.",
-		icon: <Gift className="h-5 w-5 text-amber-800" />,
+		icon: <Utensils className="h-5 w-5 text-amber-800" />,
 	},
 ];
 
@@ -95,16 +89,16 @@ const FAQSection = ({ onOpenMaps }: FAQSectionProps) => {
 						>
 							<button
 								onClick={() => toggleItem(id)}
-								className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-teal-50 transition-colors"
+								className="w-full px-6 py-4 text-left items-center justify-between hover:bg-teal-50 transition-colors flex"
 							>
-								<div className="flex items-center space-x-3">
+								<div className="flex items-center space-x-3 flex-1">
 									{icon}
-									<h3 className="font-semibold text-amber-900">{question}</h3>
+									<h3 className="font-semibold text-amber-900 grow flex-1">{question}</h3>
 								</div>
 								{openItems.includes(id) ? (
-									<ChevronUp className="h-5 w-5 text-amber-800" />
+									<ChevronUp className="h-5 w-5 text-amber-800 w-1" />
 								) : (
-									<ChevronDown className="h-5 w-5 text-amber-800" />
+									<ChevronDown className="h-5 w-5 text-amber-800 w-1" />
 								)}
 							</button>
 
@@ -132,36 +126,6 @@ const FAQSection = ({ onOpenMaps }: FAQSectionProps) => {
 							)}
 						</div>
 					))}
-				</div>
-
-				<div className="mt-12 bg-white/80 rounded-lg p-6 text-center border border-amber-400/20">
-					<h3 className="font-playfair text-xl font-semibold text-amber-900 mb-4 flex items-center justify-center gap-2">
-						<Info className="h-5 w-5 text-amber-800" />
-						Altre domande?
-					</h3>
-					<p className="text-amber-800 mb-4">
-						Non hai trovato la risposta che cercavi? Non esitare a contattarci!
-					</p>
-					<div className="space-y-2 text-sm text-amber-800">
-						<p>
-							<strong>Email:</strong>{" "}
-							<a
-								href="mailto:fazioandrea.f@gmail.com"
-								className="text-amber-800 hover:text-amber-700 underline"
-							>
-								fazioandrea.f@gmail.com
-							</a>
-						</p>
-						<p>
-							<strong>Telefono:</strong>{" "}
-							<a
-								href="tel:+393403093977"
-								className="text-amber-800 hover:text-amber-700 underline"
-							>
-								+39 340 309 3977
-							</a>
-						</p>
-					</div>
 				</div>
 			</div>
 		</section>

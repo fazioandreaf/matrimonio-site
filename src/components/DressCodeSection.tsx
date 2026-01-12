@@ -9,7 +9,7 @@ interface DressCodeItem {
 	icon: React.ReactNode;
 	title: string;
 	description: string;
-	colors: string[];
+	usefulTips: string[];
 }
 
 interface Tip {
@@ -29,15 +29,9 @@ const dressCodeItems: DressCodeItem[] = [
 				className="text-amber-800"
 			/>
 		),
-		title: "Abito Elegante",
-		description: "Abito da giorno elegante, vestito o tailleur",
-		colors: [
-			"Verde smeraldo",
-			"Blu navy",
-			"Beige",
-			"Bianco panna",
-			"Rosa polvere",
-		],
+		title: "Elegante ma Comodo",
+		description: "Abito da giorno o tailleur",
+		usefulTips: ["Evita tacchi troppo alti", "Porta una giacchettina"],
 	},
 	{
 		category: "Uomini",
@@ -45,8 +39,8 @@ const dressCodeItems: DressCodeItem[] = [
 			<FontAwesomeIcon icon={faPerson} size="xl" className="text-amber-800" />
 		),
 		title: "Smart Casual",
-		description: "Camicia elegante con pantaloni o giacca sportiva",
-		colors: ["Blu navy", "Beige", "Verde scuro", "Grigio", "Bianco"],
+		description: "Camicia o giacca con pantalone",
+		usefulTips: ["Occhiali da sole", "Puoi levare la cravatta"],
 	},
 ];
 
@@ -78,9 +72,9 @@ const DressCodeSection = () => {
 						Cerimonia Civile
 					</h3>
 					<p className="text-amber-800 text-lg">
-						Il nostro matrimonio sarà una celebrazione intima ed elegante.
+						Il nostro matrimonio sarà una celebrazione intima ed accogliente.
 						Vogliamo che tu ti senta comodo e a tuo agio in un ambiente
-						rilassato ma raffinato.
+						rilassato ma elegante.
 					</p>
 				</div>
 				<div className="bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg mb-8 border border-amber-400/20">
@@ -89,78 +83,56 @@ const DressCodeSection = () => {
 						<h2 className="font-playfair text-3xl font-bold text-amber-900 mb-4 flex items-center justify-center gap-2">
 							<Shirt /> Dress Code
 						</h2>
-						<p className="text-amber-800 text-lg">
-							Indicazioni per il tuo outfit perfetto per la nostra cerimonia
-							civile
-						</p>
+						<p className="text-amber-800 text-lg">Consigli per il tuo outfit</p>
 					</div>
 
 					<div className="grid md:grid-cols-2 gap-8 mb-8">
-						{dressCodeItems.map((item, index) => (
-							<div
-								key={index}
-								className="bg-teal-50 rounded-lg p-6 border border-amber-400/20"
-							>
-								<div className="text-center mb-4">
-									<div className="mb-2 flex justify-center">{item.icon}</div>
-									<h4 className="font-playfair text-xl font-semibold text-amber-900 mb-2">
-										{item.category}
-									</h4>
-									<h5 className="font-semibold text-amber-800 mb-2">
-										{item.title}
-									</h5>
-									<p className="text-amber-800 text-sm">{item.description}</p>
-								</div>
+						{dressCodeItems.map(
+							({ category, icon, title, description, usefulTips }, index) => (
+								<div
+									key={index}
+									className="bg-teal-50 rounded-lg p-6 border border-amber-400/20"
+								>
+									<div className="text-center mb-4">
+										<div className="mb-2 flex justify-center">{icon}</div>
+										<h4 className="font-playfair text-xl font-semibold text-amber-900 mb-2">
+											{category}
+										</h4>
+										<h5 className="font-semibold text-amber-800 mb-2">
+											{title}
+										</h5>
+										<p className="text-amber-800 text-sm">{description}</p>
+									</div>
 
-								<div className="space-y-3">
-									<div>
-										<h6 className="font-medium text-amber-800 mb-2 flex items-center">
-											<Check className="h-4 w-4 mr-1" />
-											Colori Consigliati
-										</h6>
-										<div className="flex flex-wrap gap-2">
-											{item.colors.map((color, i) => (
-												<span
-													key={i}
-													className="px-3 py-1 bg-amber-400/20 border border-amber-400/40 text-amber-800 rounded-full text-sm"
+									<div className="space-y-3">
+										<div>
+											<h6 className="font-medium text-amber-800 mb-2 flex items-center">
+												<Check className="h-4 w-4 mr-1" />
+												Consigli utili:
+											</h6>
+											<div className="flex flex-wrap gap-2">
+												<ul
+													className="list-inside space-y-1"
+													style={{ listStyleType: "circle" }}
 												>
-													{color}
-												</span>
-											))}
+													{usefulTips.map((tip) => (
+														<li key={tip} className="text-amber-800 text-sm">
+															{tip}
+														</li>
+													))}
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						))}
-					</div>
-				</div>
-
-				<div className="bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg mb-8 border border-amber-400/20">
-					<h3 className="font-playfair text-2xl font-semibold text-amber-900 mb-6 text-center flex items-center justify-center gap-2">
-						<Sparkles className="h-6 w-6 text-amber-800" />
-						Consigli Utili
-					</h3>
-
-					<div className="grid md:grid-cols-2 gap-6">
-						{tips.map((tip, index) => (
-							<div key={index} className="flex items-start space-x-4">
-								<div className="flex-shrink-0">
-									<tip.icon className="h-6 w-6 text-amber-800" />
-								</div>
-								<div>
-									<h4 className="font-semibold text-amber-900 mb-1">
-										{tip.title}
-									</h4>
-									<p className="text-amber-800 text-sm">{tip.description}</p>
-								</div>
-							</div>
-						))}
+							)
+						)}
 					</div>
 				</div>
 
 				<div className="bg-white/80 rounded-lg p-6 text-center border border-amber-400/20">
 					<h3 className="font-playfair text-xl font-semibold text-amber-900 mb-4 flex items-center justify-center gap-2">
-						<Sparkles className="h-5 w-5 text-amber-800" />
+						<Check className="h-5 w-5 text-amber-800" />
 						L&apos;importante è essere te stesso!
 					</h3>
 					<p className="text-amber-800">
