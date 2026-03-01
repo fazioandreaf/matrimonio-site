@@ -6,79 +6,15 @@ import { Resend } from "resend";
 async function sendRSVPEmail(data: RSVPData) {
 	const subject = `RSVP - ${data.name}`;
 
-	const htmlContent = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h2 style="color: #0d9488; border-bottom: 2px solid #0d9488; padding-bottom: 10px;">
-        🎉 Nuova Conferma RSVP
-      </h2>
-      
-      <div style="background-color: #f0fdfa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="color: #0f766e; margin-top: 0;">Informazioni Personali</h3>
-        <p><strong>Nome:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Partecipa:</strong> ${data.attending ? "✅ Sì" : "❌ No"}</p>
-        ${data.attending ? `<p><strong>Numero ospiti:</strong> ${data.guests}</p>` : ""}
-      </div>
-      
-      ${
-				data.hasDietaryRestrictions && data.dietaryRestrictions
-					? `
-        <div style="background-color: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #92400e; margin-top: 0;">🍽️ Esigenze Alimentari</h3>
-          <p>${data.dietaryRestrictions}</p>
-        </div>
-      `
-					: ""
-			}
-      
-      ${
-				data.message
-					? `
-        <div style="background-color: #e0f2fe; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #0369a1; margin-top: 0;">💌 Messaggio per gli Sposi</h3>
-          <p style="font-style: italic;">"${data.message}"</p>
-        </div>
-      `
-					: ""
-			}
-      
-      <div style="background-color: #f3f4f6; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
-        <p style="margin: 0; color: #6b7280; font-size: 14px;">
-          RSVP ricevuto il ${new Date().toLocaleDateString("it-IT")} alle ${new Date().toLocaleTimeString("it-IT")}
-        </p>
-      </div>
-    </div>
-  `;
-
-	const textContent = `
-Nuova Conferma RSVP
-
-Informazioni Personali:
-- Nome: ${data.name}
-- Email: ${data.email}
-- Partecipa: ${data.attending ? "Sì" : "No"}
-${data.attending ? `- Numero ospiti: ${data.guests}` : ""}
-
-${
-	data.hasDietaryRestrictions && data.dietaryRestrictions
-		? `
-Esigenze Alimentari:
-${data.dietaryRestrictions}
-`
-		: ""
-}
-
-${
-	data.message
-		? `
-Messaggio per gli Sposi:
-"${data.message}"
-`
-		: ""
-}
-
-RSVP ricevuto il ${new Date().toLocaleDateString("it-IT")} alle ${new Date().toLocaleTimeString("it-IT")}
-  `;
+	// Prepara le variabili per il template Resend
+	const templateVariables: Record<string, string> = {
+		NAME: data.name,
+		EMAIL: data.email,
+		ATTENDING: data.attending ? "Sì" : "No",
+		GUESTS: data.guests.toString(),
+		DIETARY_RESTRICTIONS: data.dietaryRestrictions || "",
+		MESSAGE: data.message || "",
+	};
 
 	try {
 		const resend = new Resend(process.env.RESEND_API_KEY);
@@ -86,10 +22,11 @@ RSVP ricevuto il ${new Date().toLocaleDateString("it-IT")} alle ${new Date().toL
 		const { data: emailData, error } = await resend.emails.send({
 			from: "RSVP Matrimonio <onboarding@resend.dev>",
 			to: ["fazioandrea.f@gmail.com"],
-			cc: ["giuliana.riolo@gmail.com"],
 			subject: subject,
-			html: htmlContent,
-			text: textContent,
+			template: {
+				id: "event-rsvp-confirmation",
+				variables: templateVariables,
+			},
 		});
 
 		if (error) {
@@ -111,11 +48,56 @@ interface RSVPData {
 	attending: boolean;
 	hasDietaryRestrictions: boolean;
 	dietaryRestrictions: string;
+	recaptchaToken?: string;
+}
+
+async function verifyRecaptcha(token: string): Promise<boolean> {
+	try {
+		const secretKey = process.env.GOOGLE_RECAPTCHA_SECRET_KEY;
+		
+		if (!secretKey) {
+			console.error('GOOGLE_RECAPTCHA_SECRET_KEY non configurata');
+			return false;
+		}
+
+		const response = await fetch(
+			'https://www.google.com/recaptcha/api/siteverify',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: `secret=${secretKey}&response=${token}`,
+			}
+		);
+
+		const data = await response.json();
+		return data.success === true;
+	} catch (error) {
+		console.error('Errore verifica reCAPTCHA:', error);
+		return false;
+	}
 }
 
 export async function POST(request: NextRequest) {
 	try {
 		const data: RSVPData = await request.json();
+
+		// Verifica reCAPTCHA
+		if (!data.recaptchaToken) {
+			return NextResponse.json(
+				{ error: "Token reCAPTCHA mancante" },
+				{ status: 400 }
+			);
+		}
+
+		const isValidRecaptcha = await verifyRecaptcha(data.recaptchaToken);
+		if (!isValidRecaptcha) {
+			return NextResponse.json(
+				{ error: "Verifica reCAPTCHA fallita. Riprova." },
+				{ status: 400 }
+			);
+		}
 
 		// Validazione dei dati
 		if (!data.name || !data.email) {

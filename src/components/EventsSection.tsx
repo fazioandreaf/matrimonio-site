@@ -15,7 +15,7 @@ const events: Event[] = [
 	{
 		id: 1,
 		title: "Cerimonia",
-		time: "17:00",
+		time: "17:30",
 		location: "Borgata Baldazza",
 		description: "Trovate il vostro posto a sedere nel bosco",
 	},

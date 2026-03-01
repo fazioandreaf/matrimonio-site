@@ -18,11 +18,11 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 	return (
 		<section
 			className="relative flex-col flex md:flex-col"
-			style={{ height: "calc(100dvh - 4rem)" }}
+			style={{ height: "calc(100svh - 4rem)" }}
 		>
 			<div className="absolute inset-0 ">
 				<Image
-					src="/provaa.png"
+					src="/sfondo-mob.png"
 					alt="Andrea & Giuliana"
 					width={450}
 					className="object-cover h-full object-center md:hidden"
@@ -30,7 +30,7 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 					priority
 				/>
 				<Image
-					src="/partecipazione.png"
+					src="/sfondo-dsk.png"
 					alt="Andrea & Giuliana"
 					width={1440 * 5}
 					className="object-cover h-full object-center hidden md:block"

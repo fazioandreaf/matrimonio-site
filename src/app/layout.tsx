@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Allura, Montserrat } from "next/font/google";
+import { Allura, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 
@@ -25,8 +25,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 			<body
 				className={`${inter.variable} ${playfair.variable} antialiased bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen`}
 			>
-				<Navigation />
-				<main className="pt-16">{children}</main>
+					<Navigation />
+					<main className="pt-16">{children}</main>
 			</body>
 		</html>
 	);

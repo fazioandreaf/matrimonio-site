@@ -10,8 +10,9 @@ import {
 	Signature,
 } from "lucide-react";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
+import { useGoogleReCaptcha } from "@google-recaptcha/react";
 
 export interface RSVPFormData {
 	name: string;
@@ -28,6 +29,7 @@ interface RSVPSectionProps {
 }
 
 const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
+	const googleReCaptcha = useGoogleReCaptcha();
 	const [formData, setFormData] = useState<RSVPFormData>({
 		name: "",
 		email: "",
@@ -47,6 +49,18 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 		setError("");
 
 		try {
+			// Verifica reCAPTCHA
+			if (!googleReCaptcha?.executeV2Invisible) {
+				throw new Error("reCAPTCHA non disponibile");
+			}
+
+			const recaptchaToken =
+				(await googleReCaptcha.executeV2Invisible()) as unknown as string;
+
+			if (!recaptchaToken || recaptchaToken.length === 0) {
+				throw new Error("Errore nella verifica reCAPTCHA");
+			}
+
 			if (onSubmit) {
 				await onSubmit(formData);
 			} else {
@@ -55,17 +69,27 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify(formData),
+					body: JSON.stringify({
+						...formData,
+						recaptchaToken,
+					}),
 				});
 
 				if (!response.ok) {
-					throw new Error("Errore durante l'invio della risposta");
+					const errorData = await response.json();
+					throw new Error(
+						errorData.error || "Errore durante l'invio della risposta"
+					);
 				}
 			}
 
 			setIsSubmitted(true);
 		} catch (err) {
-			setError("Si è verificato un errore. Riprova più tardi.");
+			setError(
+				err instanceof Error
+					? err.message
+					: "Si è verificato un errore. Riprova più tardi."
+			);
 			console.error(err);
 		} finally {
 			setIsSubmitting(false);
@@ -204,7 +228,13 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 											className="mr-3 text-amber-800 focus:ring-amber-400"
 										/>
 										<div className="text-amber-900 flex items-center gap-1">
-											Purtroppo non potrò esserci <FontAwesomeIcon icon={faFaceSadTear} width={16} height={16} className="text-amber-800" />
+											Purtroppo non potrò esserci{" "}
+											<FontAwesomeIcon
+												icon={faFaceSadTear}
+												width={16}
+												height={16}
+												className="text-amber-800"
+											/>
 										</div>
 									</label>
 								</div>
@@ -332,6 +362,28 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 									<p className="text-red-800">{error}</p>
 								</div>
 							)}
+
+							<div className="text-xs text-amber-800/70 text-center">
+								Questo sito è protetto da reCAPTCHA e si applicano le{" "}
+								<a
+									href="https://policies.google.com/privacy"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="underline hover:text-amber-900"
+								>
+									Norme sulla privacy
+								</a>{" "}
+								e i{" "}
+								<a
+									href="https://policies.google.com/terms"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="underline hover:text-amber-900"
+								>
+									Termini di servizio
+								</a>{" "}
+								di Google.
+							</div>
 
 							<button
 								type="submit"
