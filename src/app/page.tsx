@@ -1,9 +1,7 @@
 "use client";
 
-import { GoogleReCaptchaProvider } from "@google-recaptcha/react";
-
 import HeroSection from "@/components/HeroSection";
-import GallerySection from "@/components/GallerySection";
+// import GallerySection from "@/components/GallerySection";
 import EventsSection from "@/components/EventsSection";
 import RSVPSection from "@/components/RSVPSection";
 import DressCodeSection from "@/components/DressCodeSection";
@@ -44,46 +42,41 @@ const Home = () => {
 	};
 
 	return (
-		<GoogleReCaptchaProvider
-			type="v2-invisible"
-			siteKey="6LfH9HssAAAAAOCkC4Gcl-Vu2vtfTIJTUKuH4VrA"
-		>
-			<div className="min-h-screen">
-				<HeroSection onOpenMaps={openGoogleMapsWithCurrentLocation} />
-				{/* <GallerySection /> */}
-				<EventsSection />
-				<RSVPSection />
-				<DressCodeSection />
-				<FAQSection onOpenMaps={openGoogleMapsWithCurrentLocation} />
-				<GiftSection />
-				<ContactSection />
-				{/* 			<div className="mt-12 bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center border border-amber-400/20">
-					<h3 className="font-playfair text-2xl font-semibold text-amber-900 mb-4 flex items-center justify-center gap-2">
-						<Gift className="h-6 w-6 text-amber-800" />
-						Informazioni Aggiuntive
-					</h3>
-					<div className="space-y-2 text-amber-800">
-						<p>
-							<strong>Data:</strong> 13 Giugno 2027
-						</p>
-						<p>
-							<strong>Dress Code:</strong> Casual Elegante
-						</p>
-						<p>
-							<strong>Parcheggio:</strong> Disponibile presso Borgata Baldazza
-						</p>
-						<p>
-							<strong>Indirizzo:</strong> Contrada Baldazza SNC, 95015
-							Linguaglossa CT
-						</p>
-						<p>
-							<strong>Contatti:</strong> Per qualsiasi domanda, contattateci
-						</p>
-					</div>
-				</div> */}
-				<ScrollToTop />
-			</div>
-		</GoogleReCaptchaProvider>
+		<div className="min-h-screen">
+			<HeroSection onOpenMaps={openGoogleMapsWithCurrentLocation} />
+			{/* <GallerySection /> */}
+			<EventsSection />
+			<RSVPSection />
+			<DressCodeSection />
+			<FAQSection onOpenMaps={openGoogleMapsWithCurrentLocation} />
+			<GiftSection />
+			<ContactSection />
+			{/* 			<div className="mt-12 bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center border border-amber-400/20">
+				<h3 className="font-playfair text-2xl font-semibold text-amber-900 mb-4 flex items-center justify-center gap-2">
+					<Gift className="h-6 w-6 text-amber-800" />
+					Informazioni Aggiuntive
+				</h3>
+				<div className="space-y-2 text-amber-800">
+					<p>
+						<strong>Data:</strong> 13 Giugno 2027
+					</p>
+					<p>
+						<strong>Dress Code:</strong> Casual Elegante
+					</p>
+					<p>
+						<strong>Parcheggio:</strong> Disponibile presso Borgata Baldazza
+					</p>
+					<p>
+						<strong>Indirizzo:</strong> Contrada Baldazza SNC, 95015
+						Linguaglossa CT
+					</p>
+					<p>
+						<strong>Contatti:</strong> Per qualsiasi domanda, contattateci
+					</p>
+				</div>
+			</div> */}
+			<ScrollToTop />
+		</div>
 	);
 };
 
