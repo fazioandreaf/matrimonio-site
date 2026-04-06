@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { Suspense, useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Camera, Info, ArrowUp } from "lucide-react";
 import { useGalleryImages } from "@/hooks/useGalleryImages";
@@ -14,6 +14,14 @@ import ImageModal from "@/components/gallery/ImageModal";
 const SESSION_KEY = "admin_password";
 
 export default function GalleryPage() {
+	return (
+		<Suspense>
+			<GalleryContent />
+		</Suspense>
+	);
+}
+
+function GalleryContent() {
 	const searchParams = useSearchParams();
 	const isDeleteEnabled = searchParams.get("isDeleteEnabled") === "true";
 
