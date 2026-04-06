@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Camera, Info, ArrowUp } from "lucide-react";
 import { useGalleryImages } from "@/hooks/useGalleryImages";
 import type { ImageData } from "@/hooks/useGalleryImages";
@@ -10,7 +11,12 @@ import UploadDropzone from "@/components/gallery/UploadDropzone";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import ImageModal from "@/components/gallery/ImageModal";
 
+const SESSION_KEY = "admin_password";
+
 export default function GalleryPage() {
+	const searchParams = useSearchParams();
+	const isDeleteEnabled = searchParams.get("isDeleteEnabled") === "true";
+
 	const {
 		images,
 		loading,
@@ -18,6 +24,7 @@ export default function GalleryPage() {
 		loadMore,
 		refreshImages,
 		mergeNewImages,
+		removeImage,
 		totalCount,
 	} = useGalleryImages();
 
@@ -53,6 +60,46 @@ export default function GalleryPage() {
 			console.error("Download error:", error);
 		}
 	}, []);
+
+	const handleDelete = useCallback(
+		async (image: ImageData) => {
+			let password = sessionStorage.getItem(SESSION_KEY);
+			if (!password) {
+				const input = window.prompt("Inserisci la password admin:");
+				if (!input) return;
+				password = input;
+			}
+
+			try {
+				const res = await fetch(
+					`/api/images?id=${encodeURIComponent(image.id)}`,
+					{
+						method: "DELETE",
+						headers: { "X-Admin-Password": password },
+					}
+				);
+
+				if (res.status === 401) {
+					sessionStorage.removeItem(SESSION_KEY);
+					alert("Password errata.");
+					return;
+				}
+
+				if (!res.ok) {
+					alert("Errore durante l'eliminazione.");
+					return;
+				}
+
+				sessionStorage.setItem(SESSION_KEY, password);
+				removeImage(image.id);
+				setSelectedImage(null);
+			} catch (error) {
+				console.error("Delete error:", error);
+				alert("Errore di rete durante l'eliminazione.");
+			}
+		},
+		[removeImage]
+	);
 
 	const scrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
@@ -176,6 +223,8 @@ export default function GalleryPage() {
 					onClose={() => setSelectedImage(null)}
 					onNavigate={setSelectedImage}
 					onDownload={handleDownload}
+					isDeleteEnabled={isDeleteEnabled}
+					onDelete={handleDelete}
 				/>
 			)}
 

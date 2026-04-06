@@ -2,7 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
-import { X, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, Download, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
 import type { ImageData } from "@/hooks/useGalleryImages";
 
 interface ImageModalProps {
@@ -11,6 +11,8 @@ interface ImageModalProps {
 	onClose: () => void;
 	onNavigate: (image: ImageData) => void;
 	onDownload: (image: ImageData) => void;
+	isDeleteEnabled?: boolean;
+	onDelete?: (image: ImageData) => void;
 }
 
 export default function ImageModal({
@@ -19,6 +21,8 @@ export default function ImageModal({
 	onClose,
 	onNavigate,
 	onDownload,
+	isDeleteEnabled,
+	onDelete,
 }: ImageModalProps) {
 	const currentIndex = images.findIndex((img) => img.id === image.id);
 	const hasPrev = currentIndex > 0;
@@ -55,16 +59,33 @@ export default function ImageModal({
 			className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in"
 			onClick={onClose}
 		>
-			<button
-				onClick={(e) => {
-					e.stopPropagation();
-					onDownload(image);
-				}}
-				className="absolute top-4 left-4 px-4 py-2.5 bg-black/40 backdrop-blur-sm text-white rounded-full hover:bg-black/60 active:bg-black/70 transition-colors z-10 flex items-center gap-2 text-sm font-medium"
-			>
-				<Download className="h-5 w-5" />
-				Scarica
-			</button>
+			<div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+				<button
+					onClick={(e) => {
+						e.stopPropagation();
+						onDownload(image);
+					}}
+					className="px-4 py-2.5 bg-black/40 backdrop-blur-sm text-white rounded-full hover:bg-black/60 active:bg-black/70 transition-colors flex items-center gap-2 text-sm font-medium"
+				>
+					<Download className="h-5 w-5" />
+					Scarica
+				</button>
+
+				{isDeleteEnabled && onDelete && (
+					<button
+						onClick={(e) => {
+							e.stopPropagation();
+							if (window.confirm("Sei sicuro di voler eliminare questa foto?")) {
+								onDelete(image);
+							}
+						}}
+						className="px-4 py-2.5 bg-red-600/80 backdrop-blur-sm text-white rounded-full hover:bg-red-700 active:bg-red-800 transition-colors flex items-center gap-2 text-sm font-medium"
+					>
+						<Trash2 className="h-5 w-5" />
+						Elimina
+					</button>
+				)}
+			</div>
 
 			<button
 				onClick={onClose}

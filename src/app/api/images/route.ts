@@ -24,6 +24,14 @@ export async function GET() {
 
 export async function DELETE(request: Request) {
 	try {
+		const password = request.headers.get("X-Admin-Password");
+		if (!password || password !== process.env.ADMIN_PASSWORD) {
+			return NextResponse.json(
+				{ error: "Unauthorized" },
+				{ status: 401 }
+			);
+		}
+
 		const { searchParams } = new URL(request.url);
 		const filename = searchParams.get("id");
 

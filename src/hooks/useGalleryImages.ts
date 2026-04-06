@@ -57,6 +57,10 @@ export function useGalleryImages() {
 		});
 	}, []);
 
+	const removeImage = useCallback((id: string) => {
+		setAllImages((prev) => prev.filter((img) => img.id !== id));
+	}, []);
+
 	useEffect(() => {
 		const endIndex = batchIndexRef.current * BATCH_SIZE;
 		setVisibleImages(allImages.slice(0, endIndex));
@@ -71,6 +75,7 @@ export function useGalleryImages() {
 		loadMore,
 		refreshImages: fetchImages,
 		mergeNewImages,
+		removeImage,
 		totalCount: allImages.length,
 	};
 }
