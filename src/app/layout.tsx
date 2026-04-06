@@ -22,8 +22,8 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<html lang="it">
-			<body
+		<html lang="it" suppressHydrationWarning>
+			<body suppressHydrationWarning
 				className={`${inter.variable} ${playfair.variable} antialiased bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen`}
 			>
 				<RecaptchaProvider>
