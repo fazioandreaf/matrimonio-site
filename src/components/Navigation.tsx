@@ -83,14 +83,14 @@ export default function Navigation() {
 	return (
 		<nav className="fixed top-0 left-0 right-0 z-50 bg-teal-50/95 backdrop-blur-lg border-b border-amber-400/30 transition-all duration-300">
 			<div className="max-w-6xl mx-auto px-4">
-				<div className="flex items-center justify-center h-16">
+				<div className="flex items-center justify-between h-16">
 					<Link href="/" className="flex items-center space-x-2">
 						<span className="font-playfair text-2xl font-bold text-amber-800">
 							Andrea & Giuliana
 						</span>
 					</Link>
 
-					{/* 					<div className="hidden md:flex items-center space-x-8">
+					<div className="hidden md:flex items-center space-x-8">
 						{navigation.map((item) => {
 							const isActive = pathname === item.href;
 							return (
@@ -98,10 +98,10 @@ export default function Navigation() {
 									key={item.name}
 									href={item.href}
 									className={clsx(
-										"flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+										"flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
 										isActive
-											? "bg-teal-700 text-amber-400"
-											: "text-amber-300 hover:text-amber-400 hover:bg-teal-700/50"
+											? "bg-teal-100 text-amber-800"
+											: "text-amber-900 hover:text-amber-800 hover:bg-teal-50"
 									)}
 								>
 									<item.icon className="h-4 w-4" />
@@ -109,12 +109,12 @@ export default function Navigation() {
 								</Link>
 							);
 						})}
-					</div> */}
+					</div>
 
-					{/* 					<div className="md:hidden">
+					<div className="md:hidden">
 						<button
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
-							className="p-2 rounded-md text-amber-300 hover:text-amber-400 hover:bg-teal-700/50 transition-all duration-200 ease-in-out"
+							className="p-2 rounded-md text-amber-800 hover:text-amber-900 hover:bg-teal-100/50 transition-all duration-200 ease-in-out"
 						>
 							<div className="transition-transform duration-200 ease-in-out">
 								{isMenuOpen ? (
@@ -136,7 +136,7 @@ export default function Navigation() {
 								)}
 							</div>
 						</button>
-					</div> */}
+					</div>
 				</div>
 
 				{/* Mobile menu overlay */}
@@ -196,22 +196,22 @@ export default function Navigation() {
 										<button
 											onClick={() => {
 												setIsMenuOpen(false);
-												setTimeout(() => smoothScrollTo("dresscode"), 100);
-											}}
-											className="flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium text-amber-900 hover:text-amber-800 hover:bg-teal-50 transition-colors w-full text-left"
-										>
-											<Users className="h-5 w-5" />
-											<span>Dress Code</span>
-										</button>
-										<button
-											onClick={() => {
-												setIsMenuOpen(false);
 												setTimeout(() => smoothScrollTo("rsvp"), 100);
 											}}
 											className="flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium text-amber-900 hover:text-amber-800 hover:bg-teal-50 transition-colors w-full text-left"
 										>
 											<Users className="h-5 w-5" />
 											<span>RSVP</span>
+										</button>
+										<button
+											onClick={() => {
+												setIsMenuOpen(false);
+												setTimeout(() => smoothScrollTo("dresscode"), 100);
+											}}
+											className="flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium text-amber-900 hover:text-amber-800 hover:bg-teal-50 transition-colors w-full text-left"
+										>
+											<Users className="h-5 w-5" />
+											<span>Dress Code</span>
 										</button>
 										<button
 											onClick={() => {

@@ -51,7 +51,7 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 				>
 					<button
 						onClick={handleDownloadCalendar}
-						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30 w-full"
+						className="hero-animated-border relative overflow-hidden bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl active:scale-[0.98] transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex w-full"
 					>
 						<h3 className="font-playfair text-xl font-bold text-amber-400 mb-2 drop-shadow-sm flex justify-center gap-2">
 							<Calendar className="text-amber-400" />
@@ -60,14 +60,14 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 						<p className="text-amber-300 group-hover:text-amber-200 group-active:text-amber-200 transition-colors drop-shadow-sm">
 							13 Giugno 2027
 						</p>
-						<p className="text-sm text-amber-400/80 mt-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+						<p className="text-sm text-amber-400/80 mt-2 underline underline-offset-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
 							Clicca per scaricare il calendario
 						</p>
 					</button>
 
 					<button
 						onClick={onOpenMaps}
-						className="bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex border border-amber-400/30 w-full"
+						className="hero-animated-border relative overflow-hidden bg-teal-100/10 backdrop-blur-lg rounded-lg py-2 px-4 shadow-xl hover:shadow-2xl active:shadow-2xl active:scale-[0.98] transition-all duration-300 hover:bg-teal-100/20 cursor-pointer group flex-col flex w-full"
 					>
 						<h3 className="font-playfair text-xl font-bold text-amber-400 mb-2 drop-shadow-sm flex justify-center gap-2">
 							<MapPin className="text-amber-400" />
@@ -76,7 +76,7 @@ const HeroSection = ({ onOpenMaps }: HeroSectionProps) => {
 						<p className="text-sm text-amber-300 group-hover:text-amber-200 group-active:text-amber-200 transition-colors drop-shadow-sm">
 							Borgata Baldazza Linguaglossa CT
 						</p>
-						<p className="text-sm text-amber-400/80 mt-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+						<p className="text-sm text-amber-400/80 mt-2 underline underline-offset-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
 							Clicca per aprire su Google Maps
 						</p>
 					</button>

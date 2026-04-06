@@ -66,25 +66,38 @@ export class CloudflareR2API {
 
 	async getImages(): Promise<R2Image[]> {
 		try {
-			const command = new ListObjectsV2Command({
-				Bucket: this.bucketName,
-			});
+			const allImages: R2Image[] = [];
+			let continuationToken: string | undefined;
 
-			const response = await this.s3Client.send(command);
+			do {
+				const command = new ListObjectsV2Command({
+					Bucket: this.bucketName,
+					MaxKeys: 1000,
+					ContinuationToken: continuationToken,
+				});
 
-			if (!response.Contents) {
-				return [];
-			}
+				const response = await this.s3Client.send(command);
 
-			const images: R2Image[] = response.Contents.map((object) => ({
-				id: object.Key!,
-				filename: object.Key!.split("-").slice(1).join("-"), // Remove timestamp prefix
-				url: `${this.publicUrl}/${object.Key}`,
-				uploaded:
-					object.LastModified?.toISOString() || new Date().toISOString(),
-			}));
+				if (response.Contents) {
+					const batch = response.Contents.map((object) => ({
+						id: object.Key!,
+						filename: object.Key!.split("-").slice(1).join("-"),
+						url: `${this.publicUrl}/${object.Key}`,
+						uploaded:
+							object.LastModified?.toISOString() ||
+							new Date().toISOString(),
+					}));
+					allImages.push(...batch);
+				}
 
-			return images;
+				continuationToken = response.IsTruncated
+					? response.NextContinuationToken
+					: undefined;
+			} while (continuationToken);
+
+			allImages.sort((a, b) => b.id.localeCompare(a.id));
+
+			return allImages;
 		} catch (error) {
 			console.error("Error fetching images from R2:", error);
 			return [];

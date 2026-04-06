@@ -57,6 +57,43 @@ body {
 	}
 }
 
+@property --border-angle {
+	syntax: "<angle>";
+	initial-value: 0deg;
+	inherits: false;
+}
+
+.hero-animated-border::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: 1.5px;
+	background: conic-gradient(
+		from var(--border-angle),
+		rgb(251 191 36 / 0.3) 0%,
+		rgb(252 211 77 / 0.9) 12%,
+		rgb(251 191 36 / 0.3) 24%,
+		rgb(251 191 36 / 0.3) 100%
+	);
+	-webkit-mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	mask-composite: exclude;
+	animation: rotateBorder 4s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes rotateBorder {
+	to {
+		--border-angle: 360deg;
+	}
+}
+
 .grecaptcha-badge {
 	visibility: hidden;
 }

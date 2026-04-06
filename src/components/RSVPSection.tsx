@@ -43,6 +43,9 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [error, setError] = useState("");
 
+	const isRecaptchaReady =
+		googleReCaptcha && googleReCaptcha.executeV2Invisible;
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsSubmitting(true);
@@ -50,8 +53,8 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 
 		try {
 			// Verifica reCAPTCHA
-			if (!googleReCaptcha?.executeV2Invisible) {
-				throw new Error("reCAPTCHA non disponibile");
+			if (!googleReCaptcha || !googleReCaptcha.executeV2Invisible) {
+				throw new Error("reCAPTCHA non disponibile. Ricarica la pagina.");
 			}
 
 			const recaptchaToken =
@@ -387,13 +390,18 @@ const RSVPSection = ({ onSubmit }: RSVPSectionProps) => {
 
 							<button
 								type="submit"
-								disabled={isSubmitting}
+								disabled={isSubmitting || !isRecaptchaReady}
 								className="w-full bg-teal-800 hover:bg-teal-700 disabled:bg-teal-400 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center shadow-lg"
 							>
 								{isSubmitting ? (
 									<>
 										<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
 										Invio in corso...
+									</>
+								) : !isRecaptchaReady ? (
+									<>
+										<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+										Caricamento...
 									</>
 								) : (
 									<>
