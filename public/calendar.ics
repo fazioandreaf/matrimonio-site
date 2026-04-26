@@ -1,20 +1,20 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Matrimonio//Il Bosco Di Alberolungo//IT
+PRODID:-//Matrimonio//Borgata Baldazza//IT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:Matrimonio - 13 Giugno 2027
 X-WR-TIMEZONE:Europe/Rome
 BEGIN:VEVENT
-UID:matrimonio-13-giugno-2027@ilboscoalberolungo.it
+UID:andreagiulianamatrimonio13giugno@borgatabaldazza.it
 DTSTAMP:20250101T000000Z
-DTSTART:20270613T160000Z
-DTEND:20270614T020000Z
-SUMMARY:Matrimonio - Il Bosco Di Alberolungo
-DESCRIPTION:Il nostro matrimonio si terrà presso Il Bosco Di Alberolungo\\n\\nProgramma:\\n16:00 - Cerimonia\\n17:30 - Aperitivo\\n19:00 - Cena di Gala\\n22:00 - Festa e Ballo\\n\\nDress Code: Elegante\\n\\nNon vediamo l'ora di condividere con voi questo momento speciale!
-LOCATION:Il Bosco Di Alberolungo, Via Roccamena, 95024 Acireale CT
-GEO:37.6131;15.1631
-ORGANIZER;CN=Gli Sposi:MAILTO:matrimonio@ilboscoalberolungo.it
+DTSTART;TZID=Europe/Rome:20270613T173000
+DTEND;TZID=Europe/Rome:20270614T000000
+SUMMARY:Matrimonio - Borgata Baldazza
+DESCRIPTION:Il nostro matrimonio si terrà presso Borgata Baldazza\n\nProgramma:\n17:30 - Cerimonia\n18:30 - Aperitivo\n20:00 - Cena\n\nDress Code: Elegante ma Comodo\n\nNon vediamo l'ora di condividere con voi questo momento speciale!
+LOCATION:Borgata Baldazza, Contrada Baldazza SNC, 95015 Linguaglossa CT
+GEO:37.8151;15.1371
+ORGANIZER;CN=Gli Sposi:MAILTO:fazioandrea.f@gmail.com
 STATUS:CONFIRMED
 SEQUENCE:0
 PRIORITY:5
